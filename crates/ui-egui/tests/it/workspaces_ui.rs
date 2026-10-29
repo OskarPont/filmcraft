@@ -186,6 +186,7 @@ fn save_switch_reset_rename_delete_and_restart() {
             "Effects",
             "Learning",
             "Review",
+            "Short-Form",
             "Reset to Saved Layout",
             "Save Changes to this Workspace",
             "Save as New Workspace…",
@@ -280,5 +281,35 @@ fn save_rename_and_delete_through_the_dialogs() {
     d.frames(4); // the window shrinks to the shorter list
     d.click("workspaces.edit.close");
     assert!(d.app().ui.workspace_dialog.is_none(), "Close closes the dialog");
+    let _ = std::fs::remove_dir_all(&data);
+}
+
+/// Settings ▸ Appearance ▸ Interface Layout switches between the Editing workspace and the
+/// Short-Form one (library and clip details over the Timeline, a full-height Program monitor),
+/// which Window ▸ Workspaces also lists.
+#[test]
+fn interface_layout_switches_to_the_short_form_workspace_and_back() {
+    let data = data_dir("interface-layout");
+    let mut d = Driver::launch(&data);
+    assert_eq!(d.workspace(), "Editing");
+    d.ok("engine.execute", json!({"command": "prefs.set", "params": {"key": "appearance.interfaceLayout", "value": "shortForm"}}));
+    d.frames(2);
+    assert_eq!(d.workspace(), "Short-Form");
+    assert!(d.shows(PanelKind::Program) && d.shows(PanelKind::Timeline) && d.shows(PanelKind::Properties));
+    assert!(!d.shows(PanelKind::Source), "no Source monitor in the Short-Form layout");
+    assert!(d.workspaces_menu().iter().any(|(l, c)| l == "Short-Form" && *c), "checked in Window ▸ Workspaces");
+    d.snapshot("short-form");
+    // another workspace by hand, then the setting back to Standard: the Editing workspace
+    d.menu("window.workspace.color", json!({}));
+    assert_eq!(d.workspace(), "Color");
+    d.ok("engine.execute", json!({"command": "prefs.set", "params": {"key": "appearance.interfaceLayout", "value": "standard"}}));
+    d.frames(2);
+    assert_eq!(d.workspace(), "Editing");
+    assert!(d.shows(PanelKind::Source));
+    // the menu command reaches it too, and an unknown layout value is refused
+    d.menu("window.workspace.short-form", json!({}));
+    assert_eq!(d.workspace(), "Short-Form");
+    let r = d.call("engine.execute", json!({"command": "prefs.set", "params": {"key": "appearance.interfaceLayout", "value": "tiny"}}));
+    assert_eq!(r["ok"], json!(false), "{r}");
     let _ = std::fs::remove_dir_all(&data);
 }

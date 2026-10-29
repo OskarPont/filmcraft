@@ -37,6 +37,7 @@
 	Align to Video Frame	Alinhar ao quadro de vídeo
 	Align to Video Frame as Group	Alinhar ao quadro de vídeo como grupo
 	All Panels	Todos os painéis
+	Short-Form	Formato curto
 	Alpha	Alfa
 	Appearance	Aparência
 	Appearance…	Aparência…
@@ -3554,6 +3555,7 @@
 	Next Appearance Mode	Próximo modo de aparência
 	Sync with system	Sincronizar com o sistema
 	UI Scale	Escala da interface
+	Interface Layout	Layout da interface
 	Auto (system)	Automática (sistema)
 	In	Entrada
 	Out	Saída

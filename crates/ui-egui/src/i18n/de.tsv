@@ -39,6 +39,7 @@
 	Align to Video Frame	Am Videobild ausrichten
 	Align to Video Frame as Group	Als Gruppe am Videobild ausrichten
 	All Panels	Alle Bedienfelder
+	Short-Form	Kurzformat
 	Alpha	Alpha
 	Appearance	Erscheinungsbild
 	Appearance…	Darstellung…
@@ -3570,6 +3571,7 @@
 	Light Theme	Helles Design
 	Sync with system	Mit System synchronisieren
 	UI Scale	Skalierung der Oberfläche
+	Interface Layout	Oberflächen-Layout
 	Auto (system)	Automatisch (System)
 	In	In
 	Out	Out

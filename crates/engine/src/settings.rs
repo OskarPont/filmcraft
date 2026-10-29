@@ -38,8 +38,8 @@ pub use prefs::{
     PluginPrefs, TimelinePrefs, timebase_rate,
 };
 pub use schema::{
-    APPEARANCE_MODES, Category, DARK_THEMES, DURATION_UNITS, DeviceList, Field, Kind, LIGHT_THEMES, Row, UI_SCALES, categories, category, field, fields,
-    is_unit_key, migrate, sanitize, validate,
+    APPEARANCE_MODES, Category, DARK_THEMES, DURATION_UNITS, DeviceList, Field, INTERFACE_LAYOUTS, Kind, LIGHT_THEMES, Row, UI_SCALES, categories, category,
+    field, fields, is_unit_key, migrate, sanitize, validate,
 };
 
 /// Version of the preferences file layout ([`crate::autosave::Preferences::version`]).

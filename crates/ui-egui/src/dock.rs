@@ -145,7 +145,8 @@ fn vsplit(size: SplitSize, a: Node<PanelKind>, b: Node<PanelKind>) -> Node<Panel
     Node::Split { axis: SplitAxis::Vertical, size, first: Box::new(a), second: Box::new(b) }
 }
 
-pub const WORKSPACES: [&str; 9] = ["Editing", "Assembly", "Color", "Effects", "Audio", "Captions and Graphics", "Learning", "Review", "All Panels"];
+pub const WORKSPACES: [&str; 10] =
+    ["Editing", "Assembly", "Color", "Effects", "Audio", "Captions and Graphics", "Short-Form", "Learning", "Review", "All Panels"];
 
 /// The user's workspaces file, beside `preferences.json` in the data directory.
 pub const WORKSPACES_FILE: &str = "workspaces.json";
@@ -214,6 +215,11 @@ impl WorkspacePrefs {
 /// A workspace's command-id key: `Captions and Graphics` → `captionsandgraphics`.
 pub fn slug(name: &str) -> String {
     name.to_ascii_lowercase().replace(' ', "")
+}
+
+/// The workspace a Settings ▸ Appearance ▸ Interface Layout value switches to.
+pub fn interface_layout_workspace(layout: &str) -> &'static str {
+    if layout == "shortForm" { "Short-Form" } else { "Editing" }
 }
 
 pub fn is_builtin(name: &str) -> bool {
@@ -476,6 +482,22 @@ fn workspace_root(name: &str) -> Node<PanelKind> {
                 hsplit(Ratio(0.3), tabs(&[Project, MediaBrowser, Libraries], 0), bottom_editing()),
             ),
             tabs(&[EssentialGraphics, Properties], 0),
+        ),
+        // Short-form (vertical) video, laid out as social-video editors are: a library of media,
+        // effects, graphics and captions beside the selected clip's details, the Timeline under
+        // them, and a full-height Program monitor on the right where a 9:16 frame fills the space.
+        "Short-Form" => hsplit(
+            Ratio(0.63),
+            vsplit(
+                Ratio(0.58),
+                hsplit(
+                    Ratio(0.52),
+                    tabs(&[Project, MediaBrowser, Effects, EssentialGraphics, Text, EssentialSound, LumetriColor, Libraries], 0),
+                    tabs(&[Properties, EffectControls, AudioClipMixer, Info, Markers, History], 0),
+                ),
+                bottom_editing(),
+            ),
+            tabs(&[Program], 0),
         ),
         "All Panels" => vsplit(
             Ratio(0.5),

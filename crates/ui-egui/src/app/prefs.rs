@@ -106,6 +106,13 @@ impl FilmcraftApp {
             i18n::set_current(self.ui.language);
             ctx.set_language(Some(self.ui.language.bcp47().to_owned()));
         }
+        // Settings ▸ Appearance ▸ Interface Layout: changing it switches the workspace. Only a
+        // change does, so the workspace in use at launch stays whatever it was left on.
+        if let Some(q) = prev.as_ref()
+            && q.appearance.interface_layout != p.appearance.interface_layout
+        {
+            self.set_workspace(dock::interface_layout_workspace(&p.appearance.interface_layout));
+        }
         self.frames.set_cache_budget(p.memory.frame_cache_mb as usize * (1 << 20));
         self.ui.play_after_render = p.timeline.play_after_rendering;
         let hardware_changed = prev.as_ref().is_none_or(|q| q.audio_hardware != p.audio_hardware);

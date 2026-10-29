@@ -86,6 +86,9 @@ pub struct AppearancePrefs {
     /// "Animate zoom, scrolling and menus" (#2325): off, the Timeline zooms and scrolls in one
     /// step and menus, collapsing sections and tooltips appear without a fade.
     pub animations: bool,
+    /// "Interface Layout": `standard` (default) | `shortForm`. Changing it switches the window to
+    /// the Editing or the Short-Form workspace.
+    pub interface_layout: String,
 }
 
 impl Default for AppearancePrefs {
@@ -100,6 +103,7 @@ impl Default for AppearancePrefs {
             highlight_color: DEFAULT_HIGHLIGHT.into(),
             ui_scale: "auto".into(),
             animations: true,
+            interface_layout: "standard".into(),
         }
     }
 }

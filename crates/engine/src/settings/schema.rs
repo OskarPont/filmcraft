@@ -120,6 +120,10 @@ const PROJECT_OPEN: &[(&str, &str)] = &[("openNewTab", "Open new tab"), ("openNe
 const THEMES: &[(&str, &str)] = &[("darkest", "Darkest"), ("dark", "Dark"), ("light", "Light")];
 
 pub const APPEARANCE_MODES: &[(&str, &str)] = &[("auto", "Sync with system"), ("dark", "Dark"), ("light", "Light")];
+/// Settings ▸ Appearance ▸ Interface Layout: `standard` switches to the Editing workspace,
+/// `shortForm` to the Short-Form one (library and clip details over the Timeline, a tall
+/// Program monitor beside them, for vertical short-form video).
+pub const INTERFACE_LAYOUTS: &[(&str, &str)] = &[("standard", "Standard"), ("shortForm", "Short-Form")];
 
 pub const UI_SCALES: &[(&str, &str)] = &[
     ("auto", "Auto (system)"),
@@ -269,6 +273,7 @@ pub(super) static CATEGORIES: &[Category] = &[
             f("appearance.highlightColor", "Highlight Color", Kind::Color, true),
             f("appearance.uiScale", "UI Scale", Kind::Choice(UI_SCALES), true),
             b("appearance.animations", "Animate zoom, scrolling and menus", true),
+            f("appearance.interfaceLayout", "Interface Layout", Kind::Choice(INTERFACE_LAYOUTS), true),
         ],
     },
     Category {

@@ -33,6 +33,7 @@
 	Align to Video Frame	Alinear con el fotograma de video
 	Align to Video Frame as Group	Alinear con el fotograma de video como grupo
 	All Panels	Todos los paneles
+	Short-Form	Formato corto
 	Alpha	Alfa
 	Appearance	Apariencia
 	Appearance…	Apariencia…
@@ -3570,6 +3571,7 @@
 	Next Appearance Mode	Siguiente modo de apariencia
 	Sync with system	Sincronizar con el sistema
 	UI Scale	Escala de la interfaz
+	Interface Layout	Diseño de la interfaz
 	Auto (system)	Automática (sistema)
 	In	Entrada
 	Out	Salida
